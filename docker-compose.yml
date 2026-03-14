@@ -1,0 +1,36 @@
+# Docker Compose for Ovllm + OpenWebUI
+
+services:
+  ovllm:
+    build: .
+    container_name: ovllm
+    ports:
+      - "11434:11434"
+    volumes:
+      - ovllm_models:/root/.ovllm/models
+    environment:
+      - OVLLM_HOST=0.0.0.0
+      - OVLLM_PORT=11434
+      - HF_TOKEN=${HF_TOKEN:-}
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    restart: unless-stopped
+
+  openwebui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: openwebui
+    ports:
+      - "3000:8080"
+    environment:
+      - OLLAMA_BASE_URL=http://ovllm:11434
+    depends_on:
+      - ovllm
+    restart: unless-stopped
+
+volumes:
+  ovllm_models:

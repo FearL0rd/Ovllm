@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ovllm"
+version = "0.1.0"
+description = "Ollama-like CLI for vLLM - download and serve HuggingFace models"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "Apache-2.0"}
+authors = [
+    {name = "Ovllm Team"}
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+    "vllm>=0.6.0",
+    "huggingface_hub>=0.20.0",
+    "fastapi>=0.104.0",
+    "uvicorn[standard]>=0.24.0",
+    "pydantic>=2.0.0",
+    "rich>=13.0.0",
+    "tqdm>=4.66.0",
+    "openai>=1.0.0",
+]
+
+[project.scripts]
+ovllm = "ovllm.cli.main:main"
+
+[project.urls]
+Homepage = "https://github.com/FearL0rd/Ovllm"
+Repository = "https://github.com/FearL0rd/Ovllm"
+
+[tool.setuptools.packages.find]
+where = ["."]

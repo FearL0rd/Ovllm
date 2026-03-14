@@ -1,0 +1,24 @@
+# Ovllm dependencies
+
+# Core inference engine
+vllm>=0.6.0
+
+# Model downloading
+huggingface_hub>=0.20.0
+
+# API server
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+
+# Data validation
+pydantic>=2.0.0
+
+# CLI interface
+rich>=13.0.0
+tqdm>=4.66.0
+
+# OpenAI compatibility
+openai>=1.0.0
+
+# Utilities
+click>=8.0.0
