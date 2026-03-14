@@ -297,15 +297,18 @@ class ModelManager:
                 # Get the list of files in the repo - use base_model_id (without :quant suffix)
                 files = list_repo_files(repo_id=base_model_id, revision=revision)
 
-                # Find all matching GGUF files for this quantization
+                # Find all matching GGUF files for this quantization (case-insensitive)
                 gguf_files = []
+                quant_suffix_lower = quant_suffix.lower()
                 for file_path in files:
                     if file_path.endswith(".gguf"):
-                        if quant_suffix in file_path:
+                        # Case-insensitive match for quantization suffix
+                        if quant_suffix_lower in file_path.lower():
                             gguf_files.append(file_path)
 
                 if not gguf_files:
                     # Fallback: try to find any GGUF files
+                    print(f"Warning: No files found matching '{quant_suffix}', downloading all GGUF files...")
                     for file_path in files:
                         if file_path.endswith(".gguf"):
                             gguf_files.append(file_path)
