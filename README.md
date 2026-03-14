@@ -11,6 +11,15 @@
 - ⚡ **vLLM Performance** - Full vLLM inference engine with continuous batching
 - 🛠️ **OpenAI Compatible** - Serve models via OpenAI-compatible API
 
+### Images of it Working
+
+![Diagram](images/01.png)
+![Diagram](images/02.png)
+![Diagram](images/04.png)
+![Diagram](images/05.png)
+![Diagram](images/06.png)
+
+
 ## Installation
 
 ### Prerequisites
