@@ -12,12 +12,23 @@
 - 🛠️ **OpenAI Compatible** - Serve models via OpenAI-compatible API
 
 ### Images of it Working
-
+- Typing HF Model Name
+  
 ![Diagram](images/01.png)
+
+- Selecting loaded model
+ 
 ![Diagram](images/02.png)
+
+- Fake Error (Working on it)
+
+![Diagram](images/03.png)
+
+- Terminal Images
+
 ![Diagram](images/04.png)
-![Diagram](images/05.png)
 ![Diagram](images/06.png)
+![Diagram](images/05.png)
 
 
 ## Installation
