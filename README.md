@@ -43,7 +43,7 @@
 
 ```bash
 # Clone the repository
-git clone https://github.com/ovllm/ovllm.git
+git clone https://github.com/FearL0rd/Ovllm.git
 cd ovllm
 
 # Install dependencies
