@@ -157,14 +157,24 @@ Available quantizations depend on the specific GGUF model repository. Common opt
 
 Set environment variables or use CLI flags:
 
+### General Configuration
+
 | Variable | Description | Default |
 |----------|-------------|---------|
 | `OVLLM_HOST` | Server host | `0.0.0.0` |
 | `OVLLM_PORT` | Server port | `11434` |
 | `OVLLM_MODELS_DIR` | Model storage directory | `~/.ovllm/models` |
-| `OVLLM_GPU_MEMORY` | GPU memory utilization | `0.9` |
-| `HF_TOKEN` | HuggingFace token (for gated/private models) | - |
 | `OVLLM_LOG_LEVEL` | Logging level | `INFO` |
+
+### vLLM Configuration
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `OVLLM_GPU_MEMORY` | GPU memory utilization (0.0-1.0) | `0.9` |
+| `OVLLM_TENSOR_PARALLEL_SIZE` | Number of GPUs to use for tensor parallelism | `1` |
+| `OVLLM_CPU_OFFLOAD_GB` | Max system RAM (in GiB) to use per GPU for offloading | `0.0` |
+
+### HuggingFace Authentication
 
 ### HuggingFace Authentication
 

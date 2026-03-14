@@ -22,3 +22,6 @@ openai>=1.0.0
 
 # Utilities
 click>=8.0.0
+
+# transformers
+git+https://github.com/huggingface/transformers.git
