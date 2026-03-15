@@ -173,6 +173,9 @@ Set environment variables or use CLI flags:
 | `OVLLM_GPU_MEMORY` | GPU memory utilization (0.0-1.0) | `0.9` |
 | `OVLLM_TENSOR_PARALLEL_SIZE` | Number of GPUs to use for tensor parallelism | `1` |
 | `OVLLM_CPU_OFFLOAD_GB` | Max system RAM (in GiB) to use per GPU for offloading | `0.0` |
+| `OVLLM_MAX_MODEL_LEN` | Maximum sequence length the model can handle | `None` (model default) |
+| `OVLLM_MAX_NUM_SEQS` | Maximum number of sequences per iteration | `256` |
+| `OVLLM_MAX_TOKENS` | Maximum number of tokens to generate | `256` |
 
 ### HuggingFace Authentication
 

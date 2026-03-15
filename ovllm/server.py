@@ -418,32 +418,57 @@ def create_app(
         messages: List[Dict], sampling_params: SamplingParams
     ) -> str:
         """Generate chat response."""
-        # Format chat messages
+        # Build prompt with conversation history
+        # Use a simpler format that doesn't echo user input
         formatted = ""
-        for msg in messages:
+        for msg in messages[:-1]:  # All messages except the last one
             role = msg.get("role", "user")
             content = msg.get("content", "")
-            formatted += f"{role.capitalize()}: {content}\n"
-        formatted += "Assistant:"
+            if role == "user":
+                formatted += f"Question: {content}\nAnswer: "
+            else:
+                formatted += f"{content}\n"
 
-        # Add stop sequences to prevent model from continuing the conversation
+        # Add the last message (current user input)
+        last_msg = messages[-1]
+        if last_msg.get("role") == "user":
+            formatted += f"Question: {last_msg.get('content', '')}\nAnswer:"
+
+        # Add comprehensive stop sequences
+        stop_sequences = [
+            "\n\nQuestion:",
+            "\nQuestion:",
+            "Question:",
+            "\n\nUser:",
+            "\nUser:",
+            "User:",
+            "\n\nAssistant:",
+            "\nAssistant:",
+            "Assistant:",
+            "\n\nHuman:",
+            "\nHuman:",
+            "Human:",
+            "\n\nAI:",
+            "AI:",
+        ]
+
         if sampling_params.stop is None:
-            sampling_params.stop = ["\n\nUser:", "\nUser:", "User:"]
+            sampling_params.stop = stop_sequences
         else:
-            sampling_params.stop = sampling_params.stop + ["\n\nUser:", "\nUser:", "User:"]
+            sampling_params.stop = sampling_params.stop + stop_sequences
 
         result = await generate_text(formatted, sampling_params)
 
-        # Clean up response - remove any trailing "User:" or "Assistant:" that might cause loops
+        # Clean up response
         result = result.strip()
         # Remove any prefix that looks like our formatting
-        if result.startswith("Assistant:"):
-            result = result[len("Assistant:"):].strip()
-        if result.startswith("User:"):
-            result = result[len("User:"):].strip()
-        # Remove any trailing User: pattern that might have slipped through
-        if "\nUser:" in result:
-            result = result.split("\nUser:")[0].strip()
+        for prefix in ["Answer:", "Question:", "User:", "Assistant:", "Human:", "AI:"]:
+            if result.startswith(prefix):
+                result = result[len(prefix):].strip()
+        # Remove any trailing patterns
+        for seq in stop_sequences:
+            if seq in result:
+                result = result.split(seq)[0].strip()
 
         return result
 

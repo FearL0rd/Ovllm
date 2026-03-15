@@ -3,6 +3,9 @@
 # Core inference engine
 vllm>=0.6.0
 
+# gguf
+gguf>=0.18.0
+
 # Model downloading
 huggingface_hub>=0.20.0
 

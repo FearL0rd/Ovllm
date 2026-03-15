@@ -17,7 +17,7 @@ def main():
     print("Sending chat request...")
 
     response = client.chat.completions.create(
-        model="meta-llama/Llama-2-7b-chat-hf",
+        model="mistralai/Mistral-7B-Instruct-v0.3",
         messages=[
             {"role": "system", "content": "You are a helpful assistant."},
             {"role": "user", "content": "Hello! How are you?"},

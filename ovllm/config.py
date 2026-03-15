@@ -33,6 +33,8 @@ class OvllmConfig:
     gpu_memory_utilization: float = 0.9
     tensor_parallel_size: int = 1
     max_model_len: Optional[int] = None
+    max_num_seqs: int = 256
+    max_tokens: int = 256
     cpu_offload_gb: float = 0.0  # Max system RAM (in GiB) to use per GPU
 
     # HuggingFace configuration
@@ -66,6 +68,12 @@ class OvllmConfig:
             self.cpu_offload_gb = float(
                 os.getenv("OVLLM_CPU_OFFLOAD_GB", str(self.cpu_offload_gb))
             )
+        if os.getenv("OVLLM_MAX_MODEL_LEN"):
+            self.max_model_len = int(os.getenv("OVLLM_MAX_MODEL_LEN"))
+        if os.getenv("OVLLM_MAX_NUM_SEQS"):
+            self.max_num_seqs = int(os.getenv("OVLLM_MAX_NUM_SEQS"))
+        if os.getenv("OVLLM_MAX_TOKENS"):
+            self.max_tokens = int(os.getenv("OVLLM_MAX_TOKENS"))
         if os.getenv("HF_TOKEN"):
             self.hf_token = os.getenv("HF_TOKEN")
         if os.getenv("OVLLM_LOG_LEVEL"):
@@ -82,6 +90,7 @@ class OvllmConfig:
             "gpu_memory_utilization": self.gpu_memory_utilization,
             "tensor_parallel_size": self.tensor_parallel_size,
             "cpu_offload_gb": self.cpu_offload_gb,
+            "max_num_seqs": self.max_num_seqs,
         }
         if self.max_model_len is not None:
             args["max_model_len"] = self.max_model_len
